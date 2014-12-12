@@ -34,33 +34,30 @@ public class Personaje extends Actor {
 		if(dibujo_actual >= images.size()){
 			dibujo_actual=0;
 		}
-		
-		
 		//Desplazamiento
 		velocidadY+=acelerationY;
 		this.setY(this.getY()+velocidadY);
-		
-		
 		//Gravedad
-		acelerationY -= 0.09;
-		
+		acelerationY -= 0.1;
 		
 		if(this.getY()<=70){//Caigo en el piso
 		velocidadY = 0;
 		acelerationY = 0;
 		this.setY(70);
+		//this.setY(images.get(dibujo_actual).getY());
 		}
-}
+	}
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		
 		images.get(dibujo_actual).setX(5);
 		images.get(dibujo_actual).setY(this.getY());
+		this.setY(images.get(dibujo_actual).getY());
 		images.get(dibujo_actual).draw(batch, parentAlpha);
 	}
 	public void salta(){
-		if(this.getY()==70){
+		if(this.getY()==70 || this.getY()<250){
+		System.out.println("Saltoooo");
 		acelerationY =1.5f;}
 	}
 }

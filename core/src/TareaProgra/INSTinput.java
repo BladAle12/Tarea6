@@ -8,6 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class INSTinput extends InputListener{
 	INST inicio;
+	//Texture	instruc = new Texture("instrucciones.png");
+	//Image in = new Image(instruc);
 	static boolean activacion = false;
 	public INSTinput(INST ini){
 		super();
@@ -17,7 +19,6 @@ public class INSTinput extends InputListener{
 	public boolean touchDown(InputEvent event, float x, float y, int pointer,
 		int button) {
 		System.out.println("Instrucciones");
-		
 		//Activacion
 		activacion = true;
 		return super.touchDown(event, x, y, pointer, button);

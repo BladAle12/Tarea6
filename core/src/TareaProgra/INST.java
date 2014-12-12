@@ -16,5 +16,8 @@ public class INST extends Image {
 	public void Desactivar(){
 		Toque.setActivacion();
 	}
+	//public Image getImage(){
+	//return Toque.in;
+	//}
 	
 }

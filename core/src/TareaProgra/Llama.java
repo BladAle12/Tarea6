@@ -1,31 +1,29 @@
 package TareaProgra;
+
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-//import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-
-public class Actor2 extends Actor {
+public class Llama extends Actor {
 	ArrayList<Image>images;
 	int dibujo_actual=0;
 	float tiempo_act=0;
-	Personaje per;
 	
-	public Actor2(Personaje per){
+	
+	public Llama(){
 		super();
 		images = new ArrayList<Image>();
-		images.add(new Image(new Texture("bomba01.png")));
-		images.add(new Image(new Texture("bomba02.png")));
-		images.add(new Image(new Texture("bomba03.png")));
+		images.add(new Image(new Texture("antorcha01.png")));
+		images.add(new Image(new Texture("antorcha02.png")));
+		images.add(new Image(new Texture("antorcha03.png")));
 	}
 	
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-//		System.out.println(delta);
 		tiempo_act+=delta;
 		if(tiempo_act>0.1f){
 			dibujo_actual++;
@@ -34,18 +32,14 @@ public class Actor2 extends Actor {
 		if(dibujo_actual >= images.size()){
 			dibujo_actual=0;
 		}
-		this.setX(this.getX()-3);
-		/*Rectangle r1=new Rectangle(this.getX(), this.getY(), 100, 100);
-		Rectangle r2=new Rectangle(per.getX(), per.getY(), 95, 95);
-		if(r2.overlaps(r1))
-			System.out.println("Piso");
-*/
-	}
+		System.out.println(dibujo_actual);
+}
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		super.draw(batch, parentAlpha);
-		images.get(dibujo_actual).setX(this.getX()+600);
+		images.get(dibujo_actual).setX(300);
 		images.get(dibujo_actual).setY(60);
 		images.get(dibujo_actual).draw(batch, parentAlpha);
 	}
 }
+

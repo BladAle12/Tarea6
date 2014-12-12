@@ -12,7 +12,7 @@ public class Ghost extends Actor {
 	ArrayList <Image> images;
 	ArrayList <Image> imagesZ; 
 	int dibujo_actual=0;
-	 boolean GameOver = false;
+	 static boolean GameOver = false;
 	 float tiemp = 0;
 	 int degrees=0;
 	 
@@ -42,35 +42,18 @@ public class Ghost extends Actor {
 			if(dibujo_actual>=imagesZ.size()){
 				dibujo_actual = 0;
 			}
-			/*if(this.getX()>=0 && op ==true){
-			this.setX(this.getX()+2);
-			//this.setY(this.getX());
-			if(this.getX()==350){	
-				op = false;
-			}}else if(op == false){
-				*/this.setX(this.getX()-5);
-				//this.setY(this.getX());
-				//if(this.getX() == 0){
-					//op = true;
-				//}
-			//}
+			this.setX(this.getX()-3);
 				Rectangle r1=new Rectangle(this.getX(), this.getY(), 85, 85);
 				Rectangle r2=new Rectangle(per.getX(), per.getY(), 95, 95);
 				if(r1.overlaps(r2)){
+					GameOver = true;
 					System.out.println("Game Over");
-					setGameOver(true);
 				}
 		}
 		public void draw(Batch batch, float parentAlpha){
 			super.draw(batch, parentAlpha);
-			/*if(op==true){
-			images.get(dibujo_actual).setX(this.getX());
-			images.get(dibujo_actual).setY(200);
-			images.get(dibujo_actual).draw(batch, parentAlpha);
-			}else{*/
-				
 				imagesZ.get(dibujo_actual).setX(this.getX());
-				imagesZ.get(dibujo_actual).setY(50);	
+				imagesZ.get(dibujo_actual).setY(70);	
 				this.setY(imagesZ.get(dibujo_actual).getY());
 				imagesZ.get(dibujo_actual).draw(batch, parentAlpha);
 			}

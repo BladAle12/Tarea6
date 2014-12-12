@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class INIinput extends InputListener {
 	INI inicio;
-	 boolean activacion = false;
+	boolean activacion = false;
 	public INIinput(INI ini){
 		super();
 		this.inicio = ini;
@@ -15,7 +15,6 @@ public class INIinput extends InputListener {
 	public boolean touchDown(InputEvent event, float x, float y, int pointer,
 			int button) {
 		System.out.println("Inicio");
-		
 		//Activacion
 		activacion = true;
 		

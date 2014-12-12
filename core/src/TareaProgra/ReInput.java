@@ -19,7 +19,7 @@ public class ReInput extends InputListener {
 		return super.touchDown(event, x, y, pointer, button);
 	}
 	public boolean getActivacion(){
-		System.out.println("ENTRADA");
+		System.out.println("entro111");
 		return activacion;
 	}
 	public void setDesactivacion(){

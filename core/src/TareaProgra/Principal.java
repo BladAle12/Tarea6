@@ -1,6 +1,8 @@
 package TareaProgra;
 
 
+
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.Gdx;
@@ -13,9 +15,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 
+
 public class Principal extends ApplicationAdapter implements InputProcessor {
 	SpriteBatch batch;
-	Texture img, opc,  ini, instru, salir, men, instruc, cuadro;
+	Texture  img,opc,  ini, instru, salir, men, instruc, cuadro;
 	Image imag, ImaCuadro;
 	Stage capa, menu, inst;
 	Music replay, salto;
@@ -26,10 +29,17 @@ public class Principal extends ApplicationAdapter implements InputProcessor {
 	INI inic;
 	Regreso in;
 	Ghost ac1;
-	PERSO anima;
+	Llama llama;
 	Image rotate;
 	int cont = 0, cont2 = 0, cont3 = 200, extra = 0, extra2 = 0;
 	boolean activado = true, activado2= false;
+	static MultiplataformInterface mutiplatafom_interface;
+	
+	public Principal(MultiplataformInterface multiplataform_interface){
+		this.mutiplatafom_interface = multiplataform_interface;
+		
+	}
+	
 	@Override
 	public void create () {
 		instruc = new Texture("instrucciones.png");
@@ -38,7 +48,7 @@ public class Principal extends ApplicationAdapter implements InputProcessor {
 		ImaCuadro = new Image(cuadro);
 		men = new Texture("MENU.png");
 		instru = new Texture("INS.png");
-		anima = new PERSO();
+		llama = new Llama();
 		ins = new INST(instru);
 		ini = new Texture("INI.png");
 		inic = new INI(ini);
@@ -48,9 +58,8 @@ public class Principal extends ApplicationAdapter implements InputProcessor {
 		inst = new Stage();
 		opc = new Texture("INS.png");
 		ins = new INST(opc);
-		corredor = new Personaje();
 		tierra = new Plataform();
-		capa.addActor(corredor);
+		corredor = new Personaje();
 		//musica bajada = https://www.jamendo.com/es/list/a140048/eye-of-the-storm
 		img = new Texture("fondo.jpg");
 		replay = Gdx.audio.newMusic(Gdx.files.getFileHandle("rola.mp3", FileType.Internal));
@@ -62,7 +71,7 @@ public class Principal extends ApplicationAdapter implements InputProcessor {
 		//Prueba de Rotacion
 		rotate = new Image(cuadro);
 		rotate.setOrigin(rotate.getWidth()/2, rotate.getHeight()/2);
-		rotate.setPosition(40, 100);
+		rotate.setPosition(500, 100);
 		menu.addActor(rotate);
 		
 	}
@@ -75,34 +84,28 @@ public class Principal extends ApplicationAdapter implements InputProcessor {
 			Plata();
 			cont = 100;
 		}
-		if(cont2%200==0){
-			Enemigo1();
-			cont2 = 0;
-			//ene1 = false;
-		}
-		cont2++;
-		
-		if(cont3 <= 0){
-			Enemigo2();
-			cont3 = 410;
-		}
 		cont3--;
 		cont--;
 		if(activado && !activado2){
 			MENU();
 			batch.begin();
-			batch.draw(men, 30, 250);
+			batch.draw(men, 100, 150);
 			batch.end();
 			rotate.setRotation(extra2++);
 			}
 			if(!activado){
-				
 				Gdx.input.setInputProcessor(this);
 				batch.begin();
 				batch.draw(img, 0, 0);
 				batch.end();
+				capa.addActor(corredor);
 				capa.draw();
 				capa.act();
+				if(cont2%200==0){
+					Enemigo1();
+					cont2 = 0;
+				}
+				cont2++;
 			}
 		if(activado2){
 			REG();
@@ -127,6 +130,7 @@ public class Principal extends ApplicationAdapter implements InputProcessor {
 		System.out.print(""+ac1.gameOver());
 		ac1.rotateBy(60);
 		if(ac1.gameOver()){
+			System.out.print("Por Fin");
 			activado = true;
 			inic.Desactivacion();
 		}
@@ -134,11 +138,7 @@ public class Principal extends ApplicationAdapter implements InputProcessor {
 		
 	}
 	public void LLama(){
-		menu.addActor(anima);
-	}
-	public void Enemigo2(){
-		Actor2 ac2 = new Actor2(corredor);
-		capa.addActor(ac2);
+		menu.addActor(llama);
 	}
 	
 	//MENU
@@ -148,7 +148,6 @@ public class Principal extends ApplicationAdapter implements InputProcessor {
 		Instrucciones();
 		Salir();
 		LLama();
-		
 		Cuadro();
 		menu.draw();
 		menu.act();
@@ -164,12 +163,10 @@ public class Principal extends ApplicationAdapter implements InputProcessor {
 	}
 	public void Instrucciones(){
 		ins.setY(200);
-		ins.setX(250);
-		
-		
+		ins.setX(350);
 		//DESACTIVA LA FUNCION 
 		if(ins.Activacion()){
-			
+			System.out.println("veo");
 			activado2 = true;
 			ins.Desactivar();
 			return;
@@ -186,11 +183,9 @@ public class Principal extends ApplicationAdapter implements InputProcessor {
 		in.setX(190);
 		in.setY(150);
 		inst.addActor(in);
-		
-		
 		//DESACTIVA LA FUNCION
 		if(in.Activacion()){
-			
+			System.out.println("Funciona");
 			in.Desactivacion();
 			activado2  = false;
 		}
@@ -198,7 +193,7 @@ public class Principal extends ApplicationAdapter implements InputProcessor {
 	public void Salir(){
 		salir = new Texture("SAL.png");
 		SAL sal = new SAL(salir);
-		sal.setY(50);
+		sal.setY(30);
 		sal.setX(250);
 		menu.addActor(sal);
 		
@@ -222,7 +217,7 @@ public class Principal extends ApplicationAdapter implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		
+		System.out.println("Test");
 		corredor.salta();
 		salto.play();
 		replay.stop();
